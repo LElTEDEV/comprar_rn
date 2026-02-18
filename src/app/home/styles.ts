@@ -6,11 +6,27 @@ export const styles = StyleSheet.create({
     alignItems: "center",
     backgroundColor: "#d0d2d8",
     paddingTop: 62,
-    padding: 24,
   },
 
   logo: {
     width: 134,
     height: 34,
+  },
+
+  form: {
+    gap: 7,
+    marginTop: 42,
+    width: "100%",
+    paddingHorizontal: 16,
+  },
+
+  content: {
+    flex: 1,
+    padding: 24,
+    width: "100%",
+    marginTop: 24,
+    borderTopLeftRadius: 24,
+    borderTopRightRadius: 24,
+    backgroundColor: "#FFFFFF",
   },
 });
