@@ -13,6 +13,7 @@ const FILTER_STATUS: FilterStatus[] = [FilterStatus.PENDING, FilterStatus.DONE];
 
 export function Home() {
   const [activeFilter, setActiveFilter] = useState(FilterStatus.PENDING);
+  const [description, setDescription] = useState("");
   const [items, setItems] = useState([
     { id: 1, description: "Café", status: FilterStatus.PENDING },
     { id: 2, description: "Leite", status: FilterStatus.DONE },
@@ -50,13 +51,28 @@ export function Home() {
     setItems([]);
   }
 
+  function handleAddItem() {
+    if (description.length <= 0) return;
+
+    setItems((prev) => [
+      ...prev,
+      { id: prev.length + 1, description, status: FilterStatus.PENDING },
+    ]);
+
+    setDescription("");
+  }
+
   return (
     <View style={styles.container}>
       <Image source={require("@/assets/logo.png")} style={styles.logo} />
 
       <View style={styles.form}>
-        <Input placeholder="O que você precisa comprar?" />
-        <Button title="Adicionar" />
+        <Input
+          placeholder="O que você precisa comprar?"
+          value={description}
+          onChangeText={setDescription}
+        />
+        <Button title="Adicionar" onPress={handleAddItem} />
       </View>
 
       <View style={styles.content}>
@@ -79,7 +95,7 @@ export function Home() {
         </View>
 
         <FlatList
-          data={items}
+          data={items.filter((item) => item.status === activeFilter)}
           keyExtractor={({ id }) => id.toString()}
           renderItem={({ item }) => (
             <Item
